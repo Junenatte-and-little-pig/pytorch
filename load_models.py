@@ -15,6 +15,8 @@ def main():
             data_str = data.decode()
             compiler = re.compile(r'https://[\S]*.pth')
             match = re.findall(compiler, data_str)
+            print("{} has {} models to download.".format(name,len(match)))
+            cnt=0
             for link in match:
                 filepath = r'E:\Github\pytorch\models'
                 filename = str.rsplit(link, '/')[-1]
@@ -29,9 +31,11 @@ def main():
                         f.close()
                     else:
                         print(filename+' has downloaded.')
+                    cnt+=1
                 except requests.exceptions.RequestException as e:
                     print(e)
                     continue
+                print("{} models downloaded successfully.".format(cnt))
             # print(match)
 
 
