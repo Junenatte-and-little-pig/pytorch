@@ -31,8 +31,8 @@ def grad_fn(t_u, t_c, t_p, w, b):
     return torch.stack([dloss_dw.sum(), dloss_db.sum()])
 
 
-def gradient_decent(epoches, optimizer, params, train_t_c, train_t_u, val_t_c,
-                    val_t_u):
+def gradient_decent(epoches, optimizer, params, train_t_u, train_t_c, val_t_u,
+                    val_t_c):
     for epoch in range(epoches):
         train_t_p = model(train_t_u, *params)
         train_loss = loss_fn(train_t_p, train_t_c)
@@ -66,8 +66,8 @@ def main():
     # params.grad is None
     learning_rate = 1e-5
     optimizer = optim.SGD([params], lr=learning_rate)
-    gradient_decent(1000, optimizer, params, train_t_c, train_t_u, val_t_c,
-                    val_t_u)
+    gradient_decent(1000, optimizer, params, train_t_u, train_t_c, val_t_u,
+                    val_t_c)
 
 
 if __name__ == '__main__':
