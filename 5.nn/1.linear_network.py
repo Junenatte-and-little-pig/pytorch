@@ -1,12 +1,11 @@
 # -*- encoding: utf-8 -*-
-import numpy as np
 import torch
-import torch.optim as optim
 import torch.nn as nn
+import torch.optim as optim
 
 
-def train(epoches, optimizer,model,loss_fn, train_t_u, train_t_c, val_t_u,
-                    val_t_c):
+def train(epoches, optimizer, model, loss_fn, train_t_u, train_t_c, val_t_u,
+          val_t_c):
     for epoch in range(epoches):
         train_t_p = model(train_t_u)
         train_loss = loss_fn(train_t_p, train_t_c)
@@ -42,12 +41,12 @@ def main():
     t_un_train = 0.1 * t_u_train
     t_un_val = 0.1 * t_u_val
 
-    linear_model=nn.Linear(1,1)
+    linear_model = nn.Linear(1, 1)
     # linear_model(t_un_train) # use __call__() rather than forward()
-    optimizer=optim.SGD(linear_model.parameters(),lr=1e-2)
-    train(2000,optimizer,linear_model,nn.MSELoss(),t_un_train,t_c_train,t_un_val,t_c_val)
-    print(linear_model.weight,linear_model.bias)
-
+    optimizer = optim.SGD(linear_model.parameters(), lr=1e-2)
+    train(2000, optimizer, linear_model, nn.MSELoss(), t_un_train, t_c_train,
+          t_un_val, t_c_val)
+    print(linear_model.weight, linear_model.bias)
 
 
 if __name__ == '__main__':
